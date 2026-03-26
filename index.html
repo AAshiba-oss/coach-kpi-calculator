@@ -1,12 +1,844 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coach KPI Calculator</title>
+  <style>
+    :root {
+      --bg: #12091f;
+      --panel: #1a0f2a;
+      --panel-2: #221336;
+      --field: #10071c;
+      --border: #5a12c7;
+      --border-soft: rgba(119, 47, 255, 0.45);
+      --text: #f4efff;
+      --muted: #b9a9da;
+      --green: #9cf3ae;
+      --green-2: #62e983;
+      --white: #ffffff;
+      --danger: #ff8d8d;
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(180deg, #0f071a 0%, #12091f 100%);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    body {
+      padding: 28px;
+    }
+
+    .container {
+      max-width: 1700px;
+      margin: 0 auto;
+    }
+
+    .top-panel,
+    .coach-card {
+      background: var(--panel);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .top-panel {
+      padding: 34px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 62px;
+      line-height: 1;
+      letter-spacing: -1.5px;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 22px;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .field-box,
+    .section {
+      background: var(--panel-2);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+    }
+
+    .field-box {
+      padding: 22px;
+    }
+
+    .field-label {
+      display: block;
+      color: var(--muted);
+      font-size: 17px;
+      margin-bottom: 14px;
+    }
+
+    .field-box input,
+    .field-box select,
+    .number-input {
+      width: 100%;
+      height: 78px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: var(--field);
+      color: var(--text);
+      font-size: 24px;
+      padding: 0 24px;
+      outline: none;
+    }
+
+    .coach-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .coach-card {
+      padding: 28px;
+    }
+
+    .coach-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .coach-name {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .coach-note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .coach-avatar {
+      width: 118px;
+      height: 118px;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: var(--field);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coach-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .section {
+      padding: 22px;
+    }
+
+    .section-title {
+      margin: 0 0 18px 0;
+      color: var(--green);
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .single-field {
+      background: var(--field);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+
+    .single-field label {
+      display: block;
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 12px;
+      min-height: 38px;
+      line-height: 1.25;
+    }
+
+    .single-field input {
+      width: 100%;
+      height: 64px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: #170a28;
+      color: var(--text);
+      font-size: 22px;
+      padding: 0 18px;
+      outline: none;
+    }
+
+    .stat-box {
+      background: var(--field);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      min-height: 116px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.3;
+      min-height: 38px;
+    }
+
+    .stat-value {
+      margin-top: 12px;
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .counter-row {
+      background: var(--field);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 18px;
+      min-height: 102px;
+    }
+
+    .counter-label {
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.3;
+    }
+
+    .counter-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .counter-btn {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: #170a28;
+      color: var(--white);
+      font-size: 34px;
+      cursor: pointer;
+    }
+
+    .counter-btn:hover {
+      filter: brightness(1.08);
+    }
+
+    .counter-value {
+      min-width: 50px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .result-box {
+      background: var(--field);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      min-height: 176px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.3;
+      min-height: 58px;
+    }
+
+    .result-value {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .result-value.green {
+      color: var(--green);
+      font-size: 46px;
+    }
+
+    .result-value.white {
+      color: var(--white);
+    }
+
+    .result-value.small {
+      font-size: 28px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    @media (max-width: 1200px) {
+      .coach-grid,
+      .top-grid,
+      .row-2,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Coach KPI Calculator</h1>
-  <p>Сайт работает.</p>
+  <div class="container">
+    <section class="top-panel">
+      <h1>Coach KPI Calculator</h1>
+      <div class="subtitle">Monthly KPI tracker for coaches</div>
+
+      <div class="top-grid">
+        <div class="field-box">
+          <label class="field-label" for="month">Month</label>
+          <input id="month" type="month" value="2026-03" />
+        </div>
+
+        <div class="field-box">
+          <label class="field-label" for="workingDays">Working days in month</label>
+          <input id="workingDays" type="number" min="1" value="22" />
+        </div>
+      </div>
+    </section>
+
+    <section class="coach-grid">
+      <div class="coach-card" id="coach-anna">
+        <div class="coach-head">
+          <div>
+            <h2 class="coach-name">Аня Coach</h2>
+            <div class="coach-note">KPI card</div>
+          </div>
+          <div class="coach-avatar">
+            <img src="sandbox:/mnt/data/a_pair_of_digital_illustrations_features_anthropom.png" alt="Coach cat" style="object-position:left center;">
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="section">
+            <h3 class="section-title">Availability</h3>
+            <div class="row-2">
+              <div class="single-field">
+                <label for="anna-vacation">Vacation days</label>
+                <input id="anna-vacation" type="number" min="0" value="0" />
+              </div>
+              <div class="single-field">
+                <label for="anna-sick">Sick leave days</label>
+                <input id="anna-sick" type="number" min="0" value="0" />
+              </div>
+            </div>
+            <div class="row-2" style="margin-top:18px;">
+              <div class="stat-box">
+                <div class="stat-label">Available working days</div>
+                <div class="stat-value" id="anna-available">22</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Adjusted target</div>
+                <div class="stat-value" id="anna-target">20.0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Improve</h3>
+
+            <div class="counter-row">
+              <div class="counter-label">Cases total</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="anna-improve-cases" data-action="minus">-</button>
+                <div class="counter-value" id="anna-improve-cases">0</div>
+                <button class="counter-btn" data-target="anna-improve-cases" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="counter-row" style="margin-top:18px;">
+              <div class="counter-label">Success count</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="anna-improve-success" data-action="minus">-</button>
+                <div class="counter-value" id="anna-improve-success">0</div>
+                <button class="counter-btn" data-target="anna-improve-success" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="counter-row" style="margin-top:18px;">
+              <div class="counter-label">Repeat needed</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="anna-improve-repeat" data-action="minus">-</button>
+                <div class="counter-value" id="anna-improve-repeat">0</div>
+                <button class="counter-btn" data-target="anna-improve-repeat" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="row-2" style="margin-top:18px;">
+              <div class="stat-box">
+                <div class="stat-label">Success rate</div>
+                <div class="stat-value" id="anna-improve-success-rate">—</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Repeat rate</div>
+                <div class="stat-value" id="anna-improve-repeat-rate">—</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Onboarding</h3>
+
+            <div class="counter-row">
+              <div class="counter-label">Groups count</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="anna-onboarding-groups" data-action="minus">-</button>
+                <div class="counter-value" id="anna-onboarding-groups">0</div>
+                <button class="counter-btn" data-target="anna-onboarding-groups" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="row-2" style="margin-top:18px;">
+              <div class="single-field">
+                <label for="anna-trainees-start">Trainees start</label>
+                <input id="anna-trainees-start" type="number" min="0" value="0" />
+              </div>
+              <div class="single-field">
+                <label for="anna-reached-final">Reached final</label>
+                <input id="anna-reached-final" type="number" min="0" value="0" />
+              </div>
+            </div>
+
+            <div class="single-field" style="margin-top:18px;">
+              <label for="anna-ready">Ready</label>
+              <input id="anna-ready" type="number" min="0" value="0" />
+            </div>
+
+            <div class="stat-box" style="margin-top:18px;">
+              <div class="stat-label">Ready rate</div>
+              <div class="stat-value" id="anna-ready-rate">—</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Additional work</h3>
+
+            <div class="counter-row">
+              <div class="counter-label">Articles prepared</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="anna-articles" data-action="minus">-</button>
+                <div class="counter-value" id="anna-articles">0</div>
+                <button class="counter-btn" data-target="anna-articles" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="single-field" style="margin-top:18px;">
+              <label for="anna-feedback">Feedback</label>
+              <input id="anna-feedback" type="number" min="1" max="5" step="0.1" value="5" />
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Calculated results</h3>
+            <div class="result-grid">
+              <div class="result-box">
+                <div class="result-label">Onboarding + Improve</div>
+                <div class="result-value white" id="anna-onboarding-improve">0</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">Count Trainings</div>
+                <div class="result-value white" id="anna-count-trainings">0.0</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">+ Articles</div>
+                <div class="result-value white" id="anna-plus-articles">0.0</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">Success Rate</div>
+                <div class="result-value small white" id="anna-success-rate">—</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">KPI Score</div>
+                <div class="result-value white" id="anna-kpi-score">0.00</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">KPI Bonus</div>
+                <div class="result-value green" id="anna-kpi-bonus">$0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="coach-card" id="coach-ilya">
+        <div class="coach-head">
+          <div>
+            <h2 class="coach-name">Илья Coach</h2>
+            <div class="coach-note">KPI card</div>
+          </div>
+          <div class="coach-avatar">
+            <img src="sandbox:/mnt/data/a_pair_of_digital_illustrations_features_anthropom.png" alt="Coach cat" style="object-position:right center;">
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="section">
+            <h3 class="section-title">Availability</h3>
+            <div class="row-2">
+              <div class="single-field">
+                <label for="ilya-vacation">Vacation days</label>
+                <input id="ilya-vacation" type="number" min="0" value="0" />
+              </div>
+              <div class="single-field">
+                <label for="ilya-sick">Sick leave days</label>
+                <input id="ilya-sick" type="number" min="0" value="0" />
+              </div>
+            </div>
+            <div class="row-2" style="margin-top:18px;">
+              <div class="stat-box">
+                <div class="stat-label">Available working days</div>
+                <div class="stat-value" id="ilya-available">22</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Adjusted target</div>
+                <div class="stat-value" id="ilya-target">20.0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Improve</h3>
+
+            <div class="counter-row">
+              <div class="counter-label">Cases total</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="ilya-improve-cases" data-action="minus">-</button>
+                <div class="counter-value" id="ilya-improve-cases">0</div>
+                <button class="counter-btn" data-target="ilya-improve-cases" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="counter-row" style="margin-top:18px;">
+              <div class="counter-label">Success count</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="ilya-improve-success" data-action="minus">-</button>
+                <div class="counter-value" id="ilya-improve-success">0</div>
+                <button class="counter-btn" data-target="ilya-improve-success" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="counter-row" style="margin-top:18px;">
+              <div class="counter-label">Repeat needed</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="ilya-improve-repeat" data-action="minus">-</button>
+                <div class="counter-value" id="ilya-improve-repeat">0</div>
+                <button class="counter-btn" data-target="ilya-improve-repeat" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="row-2" style="margin-top:18px;">
+              <div class="stat-box">
+                <div class="stat-label">Success rate</div>
+                <div class="stat-value" id="ilya-improve-success-rate">—</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Repeat rate</div>
+                <div class="stat-value" id="ilya-improve-repeat-rate">—</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Onboarding</h3>
+
+            <div class="counter-row">
+              <div class="counter-label">Groups count</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="ilya-onboarding-groups" data-action="minus">-</button>
+                <div class="counter-value" id="ilya-onboarding-groups">0</div>
+                <button class="counter-btn" data-target="ilya-onboarding-groups" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="row-2" style="margin-top:18px;">
+              <div class="single-field">
+                <label for="ilya-trainees-start">Trainees start</label>
+                <input id="ilya-trainees-start" type="number" min="0" value="0" />
+              </div>
+              <div class="single-field">
+                <label for="ilya-reached-final">Reached final</label>
+                <input id="ilya-reached-final" type="number" min="0" value="0" />
+              </div>
+            </div>
+
+            <div class="single-field" style="margin-top:18px;">
+              <label for="ilya-ready">Ready</label>
+              <input id="ilya-ready" type="number" min="0" value="0" />
+            </div>
+
+            <div class="stat-box" style="margin-top:18px;">
+              <div class="stat-label">Ready rate</div>
+              <div class="stat-value" id="ilya-ready-rate">—</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Additional work</h3>
+
+            <div class="counter-row">
+              <div class="counter-label">Articles prepared</div>
+              <div class="counter-controls">
+                <button class="counter-btn" data-target="ilya-articles" data-action="minus">-</button>
+                <div class="counter-value" id="ilya-articles">0</div>
+                <button class="counter-btn" data-target="ilya-articles" data-action="plus">+</button>
+              </div>
+            </div>
+
+            <div class="single-field" style="margin-top:18px;">
+              <label for="ilya-feedback">Feedback</label>
+              <input id="ilya-feedback" type="number" min="1" max="5" step="0.1" value="5" />
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Calculated results</h3>
+            <div class="result-grid">
+              <div class="result-box">
+                <div class="result-label">Onboarding + Improve</div>
+                <div class="result-value white" id="ilya-onboarding-improve">0</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">Count Trainings</div>
+                <div class="result-value white" id="ilya-count-trainings">0.0</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">+ Articles</div>
+                <div class="result-value white" id="ilya-plus-articles">0.0</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">Success Rate</div>
+                <div class="result-value small white" id="ilya-success-rate">—</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">KPI Score</div>
+                <div class="result-value white" id="ilya-kpi-score">0.00</div>
+              </div>
+              <div class="result-box">
+                <div class="result-label">KPI Bonus</div>
+                <div class="result-value green" id="ilya-kpi-bonus">$0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const counters = {
+      "anna-improve-cases": 0,
+      "anna-improve-success": 0,
+      "anna-improve-repeat": 0,
+      "anna-onboarding-groups": 0,
+      "anna-articles": 0,
+
+      "ilya-improve-cases": 0,
+      "ilya-improve-success": 0,
+      "ilya-improve-repeat": 0,
+      "ilya-onboarding-groups": 0,
+      "ilya-articles": 0
+    };
+
+    function clampNumber(value, min = 0) {
+      const num = Number(value);
+      if (Number.isNaN(num)) return min;
+      return Math.max(min, num);
+    }
+
+    function formatPercent(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return "—";
+      return `${(value * 100).toFixed(1)}%`;
+    }
+
+    function formatOne(value) {
+      return Number(value).toFixed(1);
+    }
+
+    function formatTwo(value) {
+      return Number(value).toFixed(2);
+    }
+
+    function calculateBonus(score) {
+      if (score >= 0.9) return 100;
+      if (score >= 0.8) return 90;
+      if (score >= 0.7) return 80;
+      if (score >= 0.6) return 70;
+      if (score >= 0.5) return 60;
+      if (score >= 0.4) return 50;
+      if (score >= 0.3) return 40;
+      if (score >= 0.2) return 30;
+      if (score >= 0.1) return 20;
+      return 0;
+    }
+
+    function getCoachData(prefix) {
+      const workingDays = clampNumber(document.getElementById("workingDays").value, 1);
+
+      const vacation = clampNumber(document.getElementById(`${prefix}-vacation`).value, 0);
+      const sick = clampNumber(document.getElementById(`${prefix}-sick`).value, 0);
+
+      const improveCases = counters[`${prefix}-improve-cases`] || 0;
+      const improveSuccess = counters[`${prefix}-improve-success`] || 0;
+      const improveRepeat = counters[`${prefix}-improve-repeat`] || 0;
+
+      const onboardingGroups = counters[`${prefix}-onboarding-groups`] || 0;
+      const traineesStart = clampNumber(document.getElementById(`${prefix}-trainees-start`).value, 0);
+      const reachedFinal = clampNumber(document.getElementById(`${prefix}-reached-final`).value, 0);
+      const ready = clampNumber(document.getElementById(`${prefix}-ready`).value, 0);
+
+      const articles = counters[`${prefix}-articles`] || 0;
+      const feedback = Math.min(5, Math.max(1, Number(document.getElementById(`${prefix}-feedback`).value || 5)));
+
+      const availableDays = Math.max(0, workingDays - vacation - sick);
+      const adjustedTarget = workingDays > 0 ? 20 * (availableDays / workingDays) : 0;
+
+      const improveSuccessRate = improveCases > 0 ? improveSuccess / improveCases : null;
+      const improveRepeatRate = improveCases > 0 ? improveRepeat / improveCases : null;
+      const readyRate = reachedFinal > 0 ? ready / reachedFinal : null;
+
+      const onboardingImprove = onboardingGroups + improveCases;
+      const countTrainings = onboardingGroups * 10 + improveCases / 2;
+      const plusArticles = countTrainings + articles / 2;
+
+      const successRateDenominator = reachedFinal + improveCases;
+      const successRate = successRateDenominator > 0 ? (ready + improveSuccess) / successRateDenominator : null;
+
+      let kpiScore = 0;
+      if (adjustedTarget > 0 && successRate !== null) {
+        kpiScore =
+          (Math.min(plusArticles / adjustedTarget, 1) * 0.8 * successRate) +
+          (((feedback - 1) / 4) * 0.2);
+      } else {
+        kpiScore = (((feedback - 1) / 4) * 0.2);
+      }
+
+      const kpiBonus = calculateBonus(kpiScore);
+
+      return {
+        traineesStart,
+        availableDays,
+        adjustedTarget,
+        improveSuccessRate,
+        improveRepeatRate,
+        readyRate,
+        onboardingImprove,
+        countTrainings,
+        plusArticles,
+        successRate,
+        kpiScore,
+        kpiBonus
+      };
+    }
+
+    function updateCoach(prefix) {
+      const data = getCoachData(prefix);
+
+      document.getElementById(`${prefix}-available`).textContent = data.availableDays;
+      document.getElementById(`${prefix}-target`).textContent = formatOne(data.adjustedTarget);
+
+      document.getElementById(`${prefix}-improve-success-rate`).textContent = formatPercent(data.improveSuccessRate);
+      document.getElementById(`${prefix}-improve-repeat-rate`).textContent = formatPercent(data.improveRepeatRate);
+
+      document.getElementById(`${prefix}-ready-rate`).textContent = formatPercent(data.readyRate);
+
+      document.getElementById(`${prefix}-onboarding-improve`).textContent = data.onboardingImprove;
+      document.getElementById(`${prefix}-count-trainings`).textContent = formatOne(data.countTrainings);
+      document.getElementById(`${prefix}-plus-articles`).textContent = formatOne(data.plusArticles);
+      document.getElementById(`${prefix}-success-rate`).textContent = formatPercent(data.successRate);
+      document.getElementById(`${prefix}-kpi-score`).textContent = formatTwo(data.kpiScore);
+      document.getElementById(`${prefix}-kpi-bonus`).textContent = `$${data.kpiBonus}`;
+    }
+
+    function updateAll() {
+      updateCoach("anna");
+      updateCoach("ilya");
+    }
+
+    document.querySelectorAll(".counter-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.target;
+        const action = button.dataset.action;
+        const current = counters[target] || 0;
+        counters[target] = action === "plus" ? current + 1 : Math.max(0, current - 1);
+        document.getElementById(target).textContent = counters[target];
+        updateAll();
+      });
+    });
+
+    document.querySelectorAll("input").forEach((input) => {
+      input.addEventListener("input", updateAll);
+    });
+
+    updateAll();
+  </script>
 </body>
 </html>
