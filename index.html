@@ -15,13 +15,11 @@
       --text: #f4efff;
       --muted: #b9a9da;
       --green: #9cf3ae;
-      --green-2: #62e983;
       --white: #ffffff;
-      --danger: #ff8d8d;
-      --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 18px;
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
     }
 
     * {
@@ -37,11 +35,11 @@
     }
 
     body {
-      padding: 28px;
+      padding: 14px;
     }
 
     .container {
-      max-width: 1700px;
+      max-width: 1500px;
       margin: 0 auto;
     }
 
@@ -54,29 +52,29 @@
     }
 
     .top-panel {
-      padding: 34px;
-      margin-bottom: 24px;
+      padding: 22px;
+      margin-bottom: 16px;
     }
 
     h1 {
       margin: 0;
-      font-size: 62px;
+      font-size: 46px;
       line-height: 1;
-      letter-spacing: -1.5px;
+      letter-spacing: -1px;
       font-weight: 800;
     }
 
     .subtitle {
-      margin-top: 14px;
+      margin-top: 10px;
       color: var(--muted);
-      font-size: 22px;
+      font-size: 16px;
     }
 
     .top-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 30px;
+      gap: 16px;
+      margin-top: 18px;
     }
 
     .field-box,
@@ -87,65 +85,65 @@
     }
 
     .field-box {
-      padding: 22px;
+      padding: 14px;
     }
 
     .field-label {
       display: block;
       color: var(--muted);
-      font-size: 17px;
-      margin-bottom: 14px;
+      font-size: 13px;
+      margin-bottom: 8px;
     }
 
     .field-box input,
     .field-box select,
     .number-input {
       width: 100%;
-      height: 78px;
-      border-radius: 22px;
+      height: 52px;
+      border-radius: 14px;
       border: 1px solid var(--border);
       background: var(--field);
       color: var(--text);
-      font-size: 24px;
-      padding: 0 24px;
+      font-size: 16px;
+      padding: 0 16px;
       outline: none;
     }
 
     .coach-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      gap: 16px;
       align-items: start;
     }
 
     .coach-card {
-      padding: 28px;
+      padding: 18px;
     }
 
     .coach-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
     .coach-name {
       margin: 0;
-      font-size: 34px;
+      font-size: 24px;
       font-weight: 800;
     }
 
     .coach-note {
-      margin-top: 8px;
+      margin-top: 6px;
       color: var(--muted);
-      font-size: 18px;
+      font-size: 13px;
     }
 
     .coach-avatar {
-      width: 118px;
-      height: 118px;
-      border-radius: 28px;
+      width: 82px;
+      height: 82px;
+      border-radius: 20px;
       border: 1px solid var(--border);
       background: var(--field);
       overflow: hidden;
@@ -165,51 +163,51 @@
     .stack {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 12px;
     }
 
     .section {
-      padding: 22px;
+      padding: 14px;
     }
 
     .section-title {
-      margin: 0 0 18px 0;
+      margin: 0 0 12px 0;
       color: var(--green);
-      font-size: 28px;
+      font-size: 16px;
       font-weight: 800;
     }
 
     .row-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: 12px;
     }
 
     .single-field {
       background: var(--field);
       border: 1px solid var(--border-soft);
       border-radius: var(--radius-md);
-      padding: 18px;
+      padding: 12px;
     }
 
     .single-field label {
       display: block;
       color: var(--muted);
-      font-size: 15px;
-      margin-bottom: 12px;
-      min-height: 38px;
-      line-height: 1.25;
+      font-size: 11px;
+      margin-bottom: 8px;
+      min-height: 26px;
+      line-height: 1.2;
     }
 
     .single-field input {
       width: 100%;
-      height: 64px;
-      border-radius: 18px;
+      height: 46px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: #170a28;
       color: var(--text);
-      font-size: 22px;
-      padding: 0 18px;
+      font-size: 16px;
+      padding: 0 12px;
       outline: none;
     }
 
@@ -217,8 +215,8 @@
       background: var(--field);
       border: 1px solid var(--border-soft);
       border-radius: var(--radius-md);
-      padding: 18px 20px;
-      min-height: 116px;
+      padding: 12px 14px;
+      min-height: 76px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -226,14 +224,14 @@
 
     .stat-label {
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.3;
-      min-height: 38px;
+      font-size: 11px;
+      line-height: 1.2;
+      min-height: 24px;
     }
 
     .stat-value {
-      margin-top: 12px;
-      font-size: 30px;
+      margin-top: 6px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--green);
       line-height: 1;
@@ -243,34 +241,34 @@
       background: var(--field);
       border: 1px solid var(--border-soft);
       border-radius: var(--radius-md);
-      padding: 18px 20px;
+      padding: 12px 14px;
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
-      gap: 18px;
-      min-height: 102px;
+      gap: 12px;
+      min-height: 66px;
     }
 
     .counter-label {
       color: var(--text);
-      font-size: 17px;
-      line-height: 1.3;
+      font-size: 14px;
+      line-height: 1.2;
     }
 
     .counter-controls {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
     }
 
     .counter-btn {
-      width: 62px;
-      height: 62px;
-      border-radius: 18px;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: #170a28;
       color: var(--white);
-      font-size: 34px;
+      font-size: 24px;
       cursor: pointer;
     }
 
@@ -279,24 +277,24 @@
     }
 
     .counter-value {
-      min-width: 50px;
+      min-width: 28px;
       text-align: center;
-      font-size: 24px;
+      font-size: 18px;
       font-weight: 800;
     }
 
     .result-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: 12px;
     }
 
     .result-box {
       background: var(--field);
       border: 1px solid var(--border-soft);
       border-radius: var(--radius-md);
-      padding: 18px 20px;
-      min-height: 176px;
+      padding: 12px 14px;
+      min-height: 126px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -304,13 +302,13 @@
 
     .result-label {
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.3;
-      min-height: 58px;
+      font-size: 11px;
+      line-height: 1.25;
+      min-height: 36px;
     }
 
     .result-value {
-      font-size: 34px;
+      font-size: 24px;
       font-weight: 800;
       line-height: 1;
       color: var(--white);
@@ -318,7 +316,7 @@
 
     .result-value.green {
       color: var(--green);
-      font-size: 46px;
+      font-size: 34px;
     }
 
     .result-value.white {
@@ -326,11 +324,7 @@
     }
 
     .result-value.small {
-      font-size: 28px;
-    }
-
-    .muted {
-      color: var(--muted);
+      font-size: 20px;
     }
 
     @media (max-width: 1200px) {
@@ -339,10 +333,6 @@
       .row-2,
       .result-grid {
         grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 42px;
       }
     }
   </style>
@@ -391,7 +381,7 @@
                 <input id="anna-sick" type="number" min="0" value="0" />
               </div>
             </div>
-            <div class="row-2" style="margin-top:18px;">
+            <div class="row-2" style="margin-top:12px;">
               <div class="stat-box">
                 <div class="stat-label">Available working days</div>
                 <div class="stat-value" id="anna-available">22</div>
@@ -415,7 +405,7 @@
               </div>
             </div>
 
-            <div class="counter-row" style="margin-top:18px;">
+            <div class="counter-row" style="margin-top:12px;">
               <div class="counter-label">Success count</div>
               <div class="counter-controls">
                 <button class="counter-btn" data-target="anna-improve-success" data-action="minus">-</button>
@@ -424,7 +414,7 @@
               </div>
             </div>
 
-            <div class="counter-row" style="margin-top:18px;">
+            <div class="counter-row" style="margin-top:12px;">
               <div class="counter-label">Repeat needed</div>
               <div class="counter-controls">
                 <button class="counter-btn" data-target="anna-improve-repeat" data-action="minus">-</button>
@@ -433,7 +423,7 @@
               </div>
             </div>
 
-            <div class="row-2" style="margin-top:18px;">
+            <div class="row-2" style="margin-top:12px;">
               <div class="stat-box">
                 <div class="stat-label">Success rate</div>
                 <div class="stat-value" id="anna-improve-success-rate">—</div>
@@ -457,7 +447,7 @@
               </div>
             </div>
 
-            <div class="row-2" style="margin-top:18px;">
+            <div class="row-2" style="margin-top:12px;">
               <div class="single-field">
                 <label for="anna-trainees-start">Trainees start</label>
                 <input id="anna-trainees-start" type="number" min="0" value="0" />
@@ -468,12 +458,12 @@
               </div>
             </div>
 
-            <div class="single-field" style="margin-top:18px;">
+            <div class="single-field" style="margin-top:12px;">
               <label for="anna-ready">Ready</label>
               <input id="anna-ready" type="number" min="0" value="0" />
             </div>
 
-            <div class="stat-box" style="margin-top:18px;">
+            <div class="stat-box" style="margin-top:12px;">
               <div class="stat-label">Ready rate</div>
               <div class="stat-value" id="anna-ready-rate">—</div>
             </div>
@@ -491,7 +481,7 @@
               </div>
             </div>
 
-            <div class="single-field" style="margin-top:18px;">
+            <div class="single-field" style="margin-top:12px;">
               <label for="anna-feedback">Feedback</label>
               <input id="anna-feedback" type="number" min="1" max="5" step="0.1" value="5" />
             </div>
@@ -553,7 +543,7 @@
                 <input id="ilya-sick" type="number" min="0" value="0" />
               </div>
             </div>
-            <div class="row-2" style="margin-top:18px;">
+            <div class="row-2" style="margin-top:12px;">
               <div class="stat-box">
                 <div class="stat-label">Available working days</div>
                 <div class="stat-value" id="ilya-available">22</div>
@@ -577,7 +567,7 @@
               </div>
             </div>
 
-            <div class="counter-row" style="margin-top:18px;">
+            <div class="counter-row" style="margin-top:12px;">
               <div class="counter-label">Success count</div>
               <div class="counter-controls">
                 <button class="counter-btn" data-target="ilya-improve-success" data-action="minus">-</button>
@@ -586,7 +576,7 @@
               </div>
             </div>
 
-            <div class="counter-row" style="margin-top:18px;">
+            <div class="counter-row" style="margin-top:12px;">
               <div class="counter-label">Repeat needed</div>
               <div class="counter-controls">
                 <button class="counter-btn" data-target="ilya-improve-repeat" data-action="minus">-</button>
@@ -595,7 +585,7 @@
               </div>
             </div>
 
-            <div class="row-2" style="margin-top:18px;">
+            <div class="row-2" style="margin-top:12px;">
               <div class="stat-box">
                 <div class="stat-label">Success rate</div>
                 <div class="stat-value" id="ilya-improve-success-rate">—</div>
@@ -619,7 +609,7 @@
               </div>
             </div>
 
-            <div class="row-2" style="margin-top:18px;">
+            <div class="row-2" style="margin-top:12px;">
               <div class="single-field">
                 <label for="ilya-trainees-start">Trainees start</label>
                 <input id="ilya-trainees-start" type="number" min="0" value="0" />
@@ -630,12 +620,12 @@
               </div>
             </div>
 
-            <div class="single-field" style="margin-top:18px;">
+            <div class="single-field" style="margin-top:12px;">
               <label for="ilya-ready">Ready</label>
               <input id="ilya-ready" type="number" min="0" value="0" />
             </div>
 
-            <div class="stat-box" style="margin-top:18px;">
+            <div class="stat-box" style="margin-top:12px;">
               <div class="stat-label">Ready rate</div>
               <div class="stat-value" id="ilya-ready-rate">—</div>
             </div>
@@ -653,7 +643,7 @@
               </div>
             </div>
 
-            <div class="single-field" style="margin-top:18px;">
+            <div class="single-field" style="margin-top:12px;">
               <label for="ilya-feedback">Feedback</label>
               <input id="ilya-feedback" type="number" min="1" max="5" step="0.1" value="5" />
             </div>
@@ -751,7 +741,6 @@
       const improveRepeat = counters[`${prefix}-improve-repeat`] || 0;
 
       const onboardingGroups = counters[`${prefix}-onboarding-groups`] || 0;
-      const traineesStart = clampNumber(document.getElementById(`${prefix}-trainees-start`).value, 0);
       const reachedFinal = clampNumber(document.getElementById(`${prefix}-reached-final`).value, 0);
       const ready = clampNumber(document.getElementById(`${prefix}-ready`).value, 0);
 
@@ -784,7 +773,6 @@
       const kpiBonus = calculateBonus(kpiScore);
 
       return {
-        traineesStart,
         availableDays,
         adjustedTarget,
         improveSuccessRate,
@@ -807,7 +795,6 @@
 
       document.getElementById(`${prefix}-improve-success-rate`).textContent = formatPercent(data.improveSuccessRate);
       document.getElementById(`${prefix}-improve-repeat-rate`).textContent = formatPercent(data.improveRepeatRate);
-
       document.getElementById(`${prefix}-ready-rate`).textContent = formatPercent(data.readyRate);
 
       document.getElementById(`${prefix}-onboarding-improve`).textContent = data.onboardingImprove;
